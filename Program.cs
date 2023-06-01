@@ -59,7 +59,7 @@ namespace BlackJack
             ui.DisplayDescription();
             ui.Blank("Press Enter to start: > ");
             ui.Reset();
-
+            ui.AddHUD($"Your Chips: {playerChips.NumberOfChips}");
             //Create to run while not complete
             while (!isComplete)
             {
@@ -69,29 +69,30 @@ namespace BlackJack
                 deck.Shuffle();
                 Hand dealer = new Hand(deck.Draw(2));
                 Hand player = new Hand(deck.Draw(2));
-                ui.Display();
                 int playerValue = player.GetValue(11, 10, 21);
                 bool turnOver = false;
                 int dealerValue = dealer.GetValue(11, 10, 21);
                 bool dealerOver = false;
-                ui.AddHUD($"Your Chips: {playerChips.NumberOfChips}");
-                ui.Display($"Your Chips: {playerChips.NumberOfChips}");
+                ui.Reset();
                 bool betValid = playerChips.Bet(int.Parse(ui.GetUserInput("How many chips do you want to bet?", true, "int")));
                 while (!betValid)
                 {
                     ui.Reset();
                     betValid = playerChips.Bet(int.Parse(ui.GetUserInput("Invalid bet, try again:", true, "int")));
-                    hud.Add($"Your Chips: {playerChips.NumberOfChips}");
-                    hud.RemoveAt(0);
-                    ui.setHUD(hud);
                 }
-                ui.Reset();
+
+                hud.Add($"Your Chips: {playerChips.NumberOfChips}");
+                while (hud.Count > 1)
+                { 
+                    hud.RemoveAt(0);
+                }
+                ui.setHUD(hud);
                 //Create a loop to run while turnOver = false and while the hand is worth less than 21
                 while (!turnOver && playerValue < 21)
                 {
                     //In the loop
                     //Display the player's stats
-                    ui.Display("Your Chips: "+playerChips.NumberOfChips);
+                    ui.Reset();
                     ui.DisplayBorder();
                     ui.Display();
                     ui.Display("Your Cards:");
@@ -120,7 +121,6 @@ namespace BlackJack
 
                 //Display the user's final hand
                 ui.Reset();
-                ui.Display();
                 ui.Display();
                 ui.Display("Your Cards:");
                 ui.DisplayBorder();
@@ -188,15 +188,19 @@ namespace BlackJack
                     ui.Display("Sorry, You Lost.");
                     playerChips.Lose();
                 }
+                hud.Add($"Your Chips: {playerChips.NumberOfChips}");
+                while (hud.Count > 1)
+                {
+                    hud.RemoveAt(0);
+                }
+                ui.setHUD(hud);
 
 
 
                 //Ask the user if they want to play again.
-                ui.Display("Your Chips: " + playerChips.NumberOfChips);
                 if (playerChips.NumberOfChips > 0)
                 {
                     if (ui.GetUserInput("Play Again?", true, "string").Trim().ToLower().StartsWith('n')){
-                        ui.DisplayBorder();
                         isComplete = true;
                     }
                     else
@@ -208,10 +212,18 @@ namespace BlackJack
                 {
                     ui.Display("Bankrupt!");
                     isComplete = true;
+                    ui.Blank();
                 }
                 
                 
             }
+            hud.Add($"Final Chips: {playerChips.NumberOfChips}");
+            while (hud.Count > 1)
+            {
+                hud.RemoveAt(0);
+            }
+            ui.setHUD(hud);
+            ui.Reset();
         }
     }
 }
