@@ -34,6 +34,7 @@ namespace BlackJack
             
 
             bool isComplete = false;
+            List<string> hud = new List<string>();
             ChipBank playerChips = new ChipBank(50);
             ////Create the Title and Description
             List<string> title = new List<string>();
@@ -73,13 +74,16 @@ namespace BlackJack
                 bool turnOver = false;
                 int dealerValue = dealer.GetValue(11, 10, 21);
                 bool dealerOver = false;
+                ui.AddHUD($"Your Chips: {playerChips.NumberOfChips}");
                 ui.Display($"Your Chips: {playerChips.NumberOfChips}");
                 bool betValid = playerChips.Bet(int.Parse(ui.GetUserInput("How many chips do you want to bet?", true, "int")));
                 while (!betValid)
                 {
                     ui.Reset();
-                    ui.Display($"Your Chips: {playerChips.NumberOfChips}");
                     betValid = playerChips.Bet(int.Parse(ui.GetUserInput("Invalid bet, try again:", true, "int")));
+                    hud.Add($"Your Chips: {playerChips.NumberOfChips}");
+                    hud.RemoveAt(0);
+                    ui.setHUD(hud);
                 }
                 ui.Reset();
                 //Create a loop to run while turnOver = false and while the hand is worth less than 21
