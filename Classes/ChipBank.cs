@@ -42,14 +42,16 @@ namespace BlackJack_1._0.Classes
         */
         
         //Bet(int chipsToBet)
-        public void Bet(int chipsToBet)
+        public bool Bet(int chipsToBet)
         {
-            if (CanBet && chipsToBet <= NumberOfChips)
+            if (CanBet && chipsToBet <= NumberOfChips && chipsToBet >= 0)
             {
                 ChipsToBet = chipsToBet;
                 NumberOfChips -= chipsToBet;
                 CanBet = false;
+                return true;
             }
+            return false;
         }
 
         //Win()

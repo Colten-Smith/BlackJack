@@ -74,7 +74,13 @@ namespace BlackJack
                 int dealerValue = dealer.GetValue(11, 10, 21);
                 bool dealerOver = false;
                 ui.Display($"Your Chips: {playerChips.NumberOfChips}");
-                playerChips.Bet(int.Parse(ui.GetUserInput("How many chips do you want to bet?", true, "int")));
+                bool betValid = playerChips.Bet(int.Parse(ui.GetUserInput("How many chips do you want to bet?", true, "int")));
+                while (!betValid)
+                {
+                    ui.Reset();
+                    ui.Display($"Your Chips: {playerChips.NumberOfChips}");
+                    betValid = playerChips.Bet(int.Parse(ui.GetUserInput("Invalid bet, try again:", true, "int")));
+                }
                 ui.Reset();
                 //Create a loop to run while turnOver = false and while the hand is worth less than 21
                 while (!turnOver && playerValue < 21)
