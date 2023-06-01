@@ -1,4 +1,5 @@
 ﻿using BlackJack.Classes;
+using BlackJack_1._0.Classes;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -33,6 +34,7 @@ namespace BlackJack
             
 
             bool isComplete = false;
+            ChipBank playerChips = new ChipBank(50);
             ////Create the Title and Description
             List<string> title = new List<string>();
             title.Add("  ____  _            _        _            _    ");
@@ -71,11 +73,16 @@ namespace BlackJack
                 bool turnOver = false;
                 int dealerValue = dealer.GetValue(11, 10, 21);
                 bool dealerOver = false;
+                ui.Display($"Your Chips: {playerChips.NumberOfChips}");
+                playerChips.Bet(int.Parse(ui.GetUserInput("How many chips do you want to bet?", true, "int")));
+                ui.Reset();
                 //Create a loop to run while turnOver = false and while the hand is worth less than 21
                 while (!turnOver && playerValue < 21)
                 {
                     //In the loop
                     //Display the player's stats
+                    ui.Display("Your Chips: "+playerChips.NumberOfChips);
+                    ui.DisplayBorder();
                     ui.Display();
                     ui.Display("Your Cards:");
                     ui.DisplayBorder();
@@ -160,26 +167,39 @@ namespace BlackJack
                 if (!playerBust && (dealerBust || playerValue > dealerValue))
                 {
                     ui.Display("You Win!");
+                    playerChips.Win();
                 }
                 else if ((playerValue == dealerValue) || (playerBust && dealerBust)){
                     ui.Display("You tied!");
+                    playerChips.Tie();
                 }
                 else
                 {
                     ui.Display("Sorry, You Lost.");
+                    playerChips.Lose();
                 }
 
 
 
                 //Ask the user if they want to play again.
-                if (ui.GetUserInput("Play Again?", true, "string").Trim().ToLower().StartsWith('n')){
-                    ui.DisplayBorder();
-                    isComplete = true;
+                ui.Display("Your Chips: " + playerChips.NumberOfChips);
+                if (playerChips.NumberOfChips > 0)
+                {
+                    if (ui.GetUserInput("Play Again?", true, "string").Trim().ToLower().StartsWith('n')){
+                        ui.DisplayBorder();
+                        isComplete = true;
+                    }
+                    else
+                    {
+                        ui.Reset();
+                    }
                 }
                 else
                 {
-                    ui.Reset();
+                    ui.Display("Bankrupt!");
+                    isComplete = true;
                 }
+                
                 
             }
         }

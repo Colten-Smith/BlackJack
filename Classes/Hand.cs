@@ -348,7 +348,6 @@ namespace BlackJack.Classes
             }
             return value;
         }
-        //todo Make GetHandArt Method using GetCardArt method
         public List<string> GetHandArt()
         {
             List<string> output = new List<string>();
