@@ -1,4 +1,4 @@
-﻿using BlackJack_1._0.Classes;
+﻿using BlackJack.Classes;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -23,7 +23,7 @@ Completed user turn program
 */
 
 
-namespace BlackJack_1._0
+namespace BlackJack
 {
     internal class Program
     {

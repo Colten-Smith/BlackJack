@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Student\\workspace\\BlackJack_1.0\\BlackJack_1.0.csproj": {}
+    "C:\\Users\\Student\\workspace\\BlackJack_1.0\\BlackJack.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Student\\workspace\\BlackJack_1.0\\BlackJack_1.0.csproj": {
+    "C:\\Users\\Student\\workspace\\BlackJack_1.0\\BlackJack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Student\\workspace\\BlackJack_1.0\\BlackJack_1.0.csproj",
-        "projectName": "BlackJack_1.0",
-        "projectPath": "C:\\Users\\Student\\workspace\\BlackJack_1.0\\BlackJack_1.0.csproj",
+        "projectUniqueName": "C:\\Users\\Student\\workspace\\BlackJack_1.0\\BlackJack.csproj",
+        "projectName": "BlackJack",
+        "projectPath": "C:\\Users\\Student\\workspace\\BlackJack_1.0\\BlackJack.csproj",
         "packagesPath": "C:\\Users\\Student\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Student\\workspace\\BlackJack_1.0\\obj\\",
         "projectStyle": "PackageReference",

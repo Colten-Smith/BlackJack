@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
-namespace BlackJack_1._0.Classes
+namespace BlackJack.Classes
 {
     public class ConsoleUI
     {
