@@ -21,6 +21,8 @@ Renamed BlackJackUI to ConsoleUI
 Made Progress on ConsoleUI class
 Completed ConsoleUI class
 Completed user turn program
+Completed ChipBank Class
+Implemented ChipBank Class
 */
 
 
