@@ -32,6 +32,7 @@ namespace BlackJack
     {
         static void Main(string[] args)
         {
+            HighScoreManager hsm = new HighScoreManager("Leaderboard.txt");
 
             
 
@@ -226,6 +227,8 @@ namespace BlackJack
             }
             ui.setHUD(hud);
             ui.Reset();
+            ui.DisplayBorder();
+            ui.Display("Leaderboard:");
         }
     }
 }

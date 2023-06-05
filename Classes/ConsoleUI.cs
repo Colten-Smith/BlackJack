@@ -98,7 +98,8 @@ namespace BlackJack.Classes
                         else
                         {
                             Reset();
-                            Console.Write("|Invalid entry, please enter an integer: > ");
+                            Console.WriteLine("|Invalid entry, please enter an integer.");
+                            Console.Write("|" + display + " > ");
                             userInput = Console.ReadLine();
                         }
                     }else if (type.Trim().Length >= 6 && type.Trim().ToLower().Substring(0, 6) == "double")
@@ -110,7 +111,8 @@ namespace BlackJack.Classes
                         else
                         {
                             Reset();
-                            Console.Write("|Invalid entry, please enter an decimal value: > ");
+                            Console.WriteLine("|Invalid entry, please enter an decimal value.");
+                            Console.Write("|" + display + " > ");
                             userInput = Console.ReadLine();
                         }
                     }
@@ -123,7 +125,8 @@ namespace BlackJack.Classes
                         else
                         {
                             Reset();
-                            Console.Write("|Invalid entry, please enter either Yes or No: > ");
+                            Console.WriteLine("|Invalid entry, please enter either Yes or No.");
+                            Console.Write("|" + display + " > ");
                             userInput = Console.ReadLine();
                         }
                     }
