@@ -57,9 +57,9 @@ namespace BlackJack
 
             //Create the UI
             ConsoleUI ui = new ConsoleUI(title, description);
-                
+
             //Display the Title to the screen
-            ui.DisplayTitle();
+            ui.Reset();
             ui.DisplayDescription();
             ui.Blank("Press Enter to start: > ");
             ui.Reset();
@@ -217,7 +217,6 @@ namespace BlackJack
                     ui.Display("Bankrupt!");
                     isComplete = true;
                     bankrupt = true;
-                    ui.Blank();
                     break;
                 }
                 
