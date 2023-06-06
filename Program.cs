@@ -37,6 +37,7 @@ namespace BlackJack
             
 
             bool isComplete = false;
+            bool bankrupt = false;
             List<string> hud = new List<string>();
             ChipBank playerChips = new ChipBank(50);
             ////Create the Title and Description
@@ -215,20 +216,39 @@ namespace BlackJack
                 {
                     ui.Display("Bankrupt!");
                     isComplete = true;
+                    bankrupt = true;
                     ui.Blank();
+                    break;
                 }
                 
                 
             }
-            hud.Add($"Final Chips: {playerChips.NumberOfChips}");
-            while (hud.Count > 1)
+            if (!bankrupt)
             {
-                hud.RemoveAt(0);
+                hud.Add($"Final Chips: {playerChips.NumberOfChips}");
+                while (hud.Count > 1)
+                {
+                    hud.RemoveAt(0);
+                }
+                ui.setHUD(hud);
+                ui.Reset();
+                ui.DisplayBorder();
+                //Get user name
+                string name = ui.GetUserInput("Enter your name:", false, "string").Trim().ToLower();
+
+                //Add to Leaderboard
+                hsm.AddScore(name, playerChips.NumberOfChips);
+                //Display Leaderboard
+                ui.Display();
+                ui.DisplayBorder();
+                ui.Display("Leaderboard:");
+                for(int i = 0; i < hsm.Names.Count - 1; i++)
+                {
+                    ui.Display($"{i + 1}: {hsm.Names[i]} {hsm.Scores[i]}");
+                }
             }
-            ui.setHUD(hud);
-            ui.Reset();
-            ui.DisplayBorder();
-            ui.Display("Leaderboard:");
+            hsm.UpdateLeaderboard();
+            ui.Blank();
         }
     }
 }

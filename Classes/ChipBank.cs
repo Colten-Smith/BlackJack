@@ -8,7 +8,6 @@ namespace BlackJack_1._0.Classes
 {
     public class ChipBank
     {
-        //todo create chip bank class
 
         /*
          ###########################

@@ -9,32 +9,32 @@ namespace BlackJack_1._0.Classes
 {
     public class HighScoreManager
     {
-        //todo Complete HighScoreManager class
         private string CurrentDirectory { get; set; }
         private string FileToRead { get; set; }
         private string FilePath { get; set; }
-        public Dictionary<string, int> Leaderboard { get; private set; }
+        public List<string> Names { get; private set; } = new List<string>();
+        public List<int> Scores { get; private set; } = new List<int>();
         public int LeaderboardSize { get; private set; }
         public HighScoreManager(string fileToRead)
         {
             CurrentDirectory = Directory.GetCurrentDirectory();
             FileToRead = fileToRead;
             FilePath = Path.Combine(CurrentDirectory, FileToRead);
-            Leaderboard = new Dictionary<string, int>();
             try
             {
-                StreamReader sr = new StreamReader(FilePath);
-                using (sr)
+                using (StreamReader sr = new StreamReader(FilePath))
                 {
                     while (!sr.EndOfStream)
                     {
-                        string key = sr.ReadLine();
+                        Names.Add(sr.ReadLine());
                         try
                         {
-                            int value = int.Parse(sr.ReadLine());
-                            Leaderboard[key] = value;
+                            Scores.Add(int.Parse(sr.ReadLine()));
                         }
-                        catch { }
+                        catch
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -42,7 +42,46 @@ namespace BlackJack_1._0.Classes
             {
 
             }
-            LeaderboardSize = Leaderboard.Count();
+            LeaderboardSize = Names.Count();
+        }
+        public void AddScore(string name, int score)
+        {
+            if (name.Length > 20)
+            {
+                name = name.Substring(0, 20);
+            }
+            foreach (int item in Scores)
+            {
+                if (score > item)
+                {
+                    int index = Scores.IndexOf(item);
+                    Scores.Insert(index, score);
+                    Names.Insert(index, name);
+                    Names.RemoveAt(Names.Count - 1);
+                    Scores.RemoveAt(Scores.Count - 1);
+                    break;
+                }
+            }
+        }
+        public void UpdateLeaderboard()
+        {
+            try
+            {
+                using (StreamWriter sr = new StreamWriter(FilePath))
+                {
+                    for (int i = 0; i < Names.Count; i++)
+                    {
+                        sr.WriteLine(Names[i]);
+                        sr.WriteLine(Scores[i]);
+                    }
+                }
+            }
+
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }
