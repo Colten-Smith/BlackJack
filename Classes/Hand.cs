@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlackJack_1._0.Classes
+namespace BlackJack.Classes
 {
     public class Hand
     {
@@ -348,7 +348,6 @@ namespace BlackJack_1._0.Classes
             }
             return value;
         }
-        //todo Make GetHandArt Method using GetCardArt method
         public List<string> GetHandArt()
         {
             List<string> output = new List<string>();

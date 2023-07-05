@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
-namespace BlackJack_1._0.Classes
+namespace BlackJack.Classes
 {
     public class ConsoleUI
     {
@@ -24,6 +24,8 @@ namespace BlackJack_1._0.Classes
         /// </summary>
         public List<string> Description { get; private set; }
 
+        //Hud {get;set;}
+        public List<string> HUD { get; private set; } = new List<string>();
         //Border
         //String used as a border between sections of the program.
         public string Border { get; private set; } = "=========================================================================================================" +
@@ -46,6 +48,13 @@ namespace BlackJack_1._0.Classes
         {
             Title = title;
             Description = description;
+            Console.Write(Border);
+        }
+        public ConsoleUI(List<string> title, List<string> description, List<string> hud)
+        {
+            Title = title;
+            Description = description;
+            HUD = hud;
             Console.Write(Border);
         }
 
@@ -76,6 +85,7 @@ namespace BlackJack_1._0.Classes
                 {
                     if (userInput == null || userInput == "")
                     {
+                        Reset();
                         Console.Write("|Invalid entry, please try again: > ");
                         userInput = Console.ReadLine();
                     }
@@ -87,7 +97,9 @@ namespace BlackJack_1._0.Classes
                         }
                         else
                         {
-                            Console.Write("|Invalid entry, please enter an integer: > ");
+                            Reset();
+                            Console.WriteLine("|Invalid entry, please enter an integer.");
+                            Console.Write("|" + display + " > ");
                             userInput = Console.ReadLine();
                         }
                     }else if (type.Trim().Length >= 6 && type.Trim().ToLower().Substring(0, 6) == "double")
@@ -98,7 +110,9 @@ namespace BlackJack_1._0.Classes
                         }
                         else
                         {
-                            Console.Write("|Invalid entry, please enter an decimal value: > ");
+                            Reset();
+                            Console.WriteLine("|Invalid entry, please enter an decimal value.");
+                            Console.Write("|" + display + " > ");
                             userInput = Console.ReadLine();
                         }
                     }
@@ -110,7 +124,9 @@ namespace BlackJack_1._0.Classes
                         }
                         else
                         {
-                            Console.Write("|Invalid entry, please enter either Yes or No: > ");
+                            Reset();
+                            Console.WriteLine("|Invalid entry, please enter either Yes or No.");
+                            Console.Write("|" + display + " > ");
                             userInput = Console.ReadLine();
                         }
                     }
@@ -213,7 +229,7 @@ namespace BlackJack_1._0.Classes
             Console.Clear();
             DisplayBorder();
             DisplayTitle();
-            DisplayBorder();
+            DisplayHUD();
         }
         public void Blank()
         {
@@ -223,6 +239,32 @@ namespace BlackJack_1._0.Classes
         {
             Console.Write($"| {prompt}");
             Console.ReadLine();
+        }
+        public void setHUD(List<string> newHud)
+        {
+            HUD = newHud;
+        }
+        public void AddHUD(string newElement)
+        {
+            HUD.Add(newElement);
+        }
+        public void AddHUD(List<string> newElements)
+        {
+            HUD.AddRange(newElements);
+        }
+        public void DisplayHUD()
+        {
+            foreach (string line in HUD)
+            {
+                int tempNum = Border.Length - (2 + line.Length);
+                string buffer = "";
+                for (int i = tempNum; i > 0; i--)
+                {
+                    buffer += " ";
+                }
+                Console.Write("|" + line);
+                Console.Write(buffer + "|");
+            }
         }
         //################################
 
